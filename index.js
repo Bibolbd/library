@@ -1,5 +1,4 @@
 let myLibrary = [];
-let bookNumber = -1;
 
 function Book(title, author, pages, isRead) {
   this.title = title;
@@ -23,6 +22,7 @@ const addBook = document.getElementById("addBook");
 const newBook = document.getElementById("newBook");
 const library = document.getElementById("library");
 
+let bookNumber = -1;
 addBook.addEventListener("submit", function (Event) {
   Event.preventDefault();
   const title = document.getElementById("title").value;
@@ -33,26 +33,41 @@ addBook.addEventListener("submit", function (Event) {
     : "not yet read";
   myLibrary.push(new Book(title, author, numberOfPages, isRead));
   bookNumber++;
-  displayLibrary();
-  console.log(bookNumber)
+  displayLibrary(
+    myLibrary.filter(function (_, index) {
+      return index === bookNumber;
+    })
+  );
 });
 
-function displayLibrary() {
-  myLibrary.map(function (value, index) {
-    if (index === bookNumber) {
-      let title = document.createElement("p");
-      let author = document.createElement("p");
-      let pages = document.createElement("p");
-      let isRead = document.createElement("p");
-      title.innerHTML = value.title;
-      author.innerHTML = value.author;
-      pages.innerHTML = value.pages;
-      isRead.innerHTML = value.isRead;
-      library.appendChild(title);
-      library.appendChild(author);
-      library.appendChild(pages);
-      library.appendChild(isRead);
-    }
+function displayLibrary(array) {
+  array.map(function (value) {
+    let bookCard = document.createElement("div");
+    let buttonGroup = document.createElement("div");
+    let title = document.createElement("h2");
+    let author = document.createElement("p");
+    let pages = document.createElement("p");
+    let isRead = document.createElement("p");
+    let removeButton = document.createElement("button");
+
+    title.textContent = value.title;
+    author.textContent = `Author: ${value.author}`;
+    pages.textContent = `Pages: ${value.pages}`;
+    isRead.textContent = `IsRead: ${value.isRead}`;
+    removeButton.textContent = "Remove";
+
+    bookCard.classList.add("cardContainer");
+    buttonGroup.classList.add("buttonGroup");
+    removeButton.classList.add("removeButton");
+    title.classList.add("bookTitle");
+
+    bookCard.appendChild(title);
+    bookCard.appendChild(author);
+    bookCard.appendChild(pages);
+    bookCard.appendChild(isRead);
+    buttonGroup.appendChild(removeButton);
+    bookCard.appendChild(buttonGroup);
+    library.appendChild(bookCard);
   });
 }
 
