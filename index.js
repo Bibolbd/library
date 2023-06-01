@@ -16,7 +16,7 @@ addBook.addEventListener('click', function (Event) {
     const title = document.getElementById('title').value
     const author = document.getElementById('author').value
     const numberOfPages = document.getElementById('numberOfPages').value
-    const isRead = document.getElementById('isRead').value
+    const isRead = document.getElementById('isRead').checked ? 'finished' : "not yet read"
     myLibrary.push(new Book(title, author, numberOfPages, isRead))
     Event.preventDefault()
     console.log(myLibrary);
