@@ -1,6 +1,4 @@
 let myLibrary = [];
-let bookNumber = 0;
-const addBook = document.getElementById("addBook");
 
 function Book(title, author, pages, isRead) {
   this.title = title;
@@ -19,6 +17,9 @@ function Book(title, author, pages, isRead) {
     );
   };
 }
+
+const addBook = document.getElementById("addBook");
+const newBook = document.getElementById("newBook");
 
 addBook.addEventListener("submit", function (Event) {
   Event.preventDefault();
@@ -48,3 +49,9 @@ function displayLibrary() {
     document.body.appendChild(isRead);
   });
 }
+
+let addState = false;
+newBook.addEventListener("click", function () {
+  addState = !addState;
+  addBook.style.display = addState ? "block" : "none";
+});
