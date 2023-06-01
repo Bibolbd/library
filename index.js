@@ -18,11 +18,17 @@ function Book(title, author, pages, isRead) {
   };
 }
 
+Book.prototype.removeBook = function () {
+  myLibrary = myLibrary.filter(function (book) {
+    return book !== this;
+  }, this);
+  displayLibrary(myLibrary);
+};
+
 const addBook = document.getElementById("addBook");
 const newBook = document.getElementById("newBook");
 const library = document.getElementById("library");
 
-let bookNumber = -1;
 addBook.addEventListener("submit", function (Event) {
   Event.preventDefault();
   const title = document.getElementById("title").value;
@@ -32,15 +38,14 @@ addBook.addEventListener("submit", function (Event) {
     ? "finished"
     : "not yet read";
   myLibrary.push(new Book(title, author, numberOfPages, isRead));
-  bookNumber++;
-  displayLibrary(
-    myLibrary.filter(function (_, index) {
-      return index === bookNumber;
-    })
-  );
+  displayLibrary(myLibrary);
 });
 
 function displayLibrary(array) {
+  while (library.firstChild) {
+    library.removeChild(library.firstChild);
+  }
+
   array.map(function (value) {
     let bookCard = document.createElement("div");
     let buttonGroup = document.createElement("div");
@@ -68,6 +73,10 @@ function displayLibrary(array) {
     buttonGroup.appendChild(removeButton);
     bookCard.appendChild(buttonGroup);
     library.appendChild(bookCard);
+
+    removeButton.addEventListener("click", function () {
+      value.removeBook();
+    });
   });
 }
 
