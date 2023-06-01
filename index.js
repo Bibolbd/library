@@ -29,19 +29,22 @@ addBook.addEventListener("submit", function (Event) {
     ? "finished"
     : "not yet read";
   myLibrary.push(new Book(title, author, numberOfPages, isRead));
-  // console.log(myLibrary)
   displayLibrary();
 });
 
 function displayLibrary() {
-  let library = myLibrary.map(function (value, index) {
-    return {
-      key: index,
-      title: value.title,
-      author: value.author,
-      pages: value.pages,
-      isRead: value.isRead,
-    };
+  myLibrary.map(function (value) {
+    let title = document.createElement("p");
+    let author = document.createElement("p");
+    let pages = document.createElement("p");
+    let isRead = document.createElement("p");
+    title.innerHTML = value.title;
+    author.innerHTML = value.author;
+    pages.innerHTML = value.pages;
+    isRead.innerHTML = value.isRead;
+    document.body.appendChild(title);
+    document.body.appendChild(author);
+    document.body.appendChild(pages);
+    document.body.appendChild(isRead);
   });
-  console.log(library);
 }
