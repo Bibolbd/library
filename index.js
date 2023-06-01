@@ -44,6 +44,7 @@ addBook.addEventListener("submit", function (Event) {
     ? "finished"
     : "not yet read";
   myLibrary.push(new Book(title, author, numberOfPages, isRead));
+  addBook.style.display = "none";
   displayLibrary(myLibrary);
 });
 
@@ -96,5 +97,5 @@ function displayLibrary(array) {
 let addState = false;
 newBook.addEventListener("click", function () {
   addState = !addState;
-  addBook.style.display = addState ? "block" : "none";
+  addBook.style.display = addState ? "flex" : "none";
 });

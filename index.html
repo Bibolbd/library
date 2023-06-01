@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <h1>Library</h1>
+      <h1>Library</h1>
     </header>
     <button type="button" id="newBook">New Book</button>
     <form action="" id="addBook">
-        <input type="text" id="title" placeholder="Title">
-        <input type="text" id="author" placeholder="Author">
-        <input type="text" id="numberOfPages" placeholder="Number Of Pages">
-        <label for="isRead">Have you read it?</label>
-        <input type="checkbox" id="isRead">
-        <button type="submit">ADD</button>
+      <input type="text" id="title" placeholder="Title" required />
+      <input type="text" id="author" placeholder="Author" required />
+      <input
+        type="text"
+        id="numberOfPages"
+        placeholder="Number Of Pages"
+        required
+      />
+      <div class="checkboxContainer">
+        <p for="isRead">Have you read it?</p>
+        <input type="checkbox" id="isRead" />
+      </div>
+      <button type="submit" id="sub">ADD</button>
     </form>
-    <main id="library">
-
-    </main>
-</body>
-<script src="index.js"></script>
+    <main id="library"></main>
+  </body>
+  <script src="index.js"></script>
 </html>
