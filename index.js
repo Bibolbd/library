@@ -19,9 +19,15 @@ function Book(title, author, pages, isRead) {
 }
 
 Book.prototype.removeBook = function () {
-  myLibrary = myLibrary.filter(function (book) {
-    return book !== this;
-  }, this);
+  displayLibrary(
+    myLibrary.filter(function (book) {
+      return book !== this;
+    }, this)
+  );
+};
+
+Book.prototype.changeStatus = function () {
+  this.isRead = this.isRead === "finished" ? "not yet read" : "finished";
   displayLibrary(myLibrary);
 };
 
@@ -47,35 +53,42 @@ function displayLibrary(array) {
   }
 
   array.map(function (value) {
-    let bookCard = document.createElement("div");
-    let buttonGroup = document.createElement("div");
-    let title = document.createElement("h2");
-    let author = document.createElement("p");
-    let pages = document.createElement("p");
-    let isRead = document.createElement("p");
-    let removeButton = document.createElement("button");
+    const bookCard = document.createElement("div");
+    const buttonGroup = document.createElement("div");
+    const title = document.createElement("h2");
+    const author = document.createElement("p");
+    const pages = document.createElement("p");
+    const removeButton = document.createElement("button");
+    const readButton = document.createElement("button");
 
     title.textContent = value.title;
     author.textContent = `Author: ${value.author}`;
     pages.textContent = `Pages: ${value.pages}`;
-    isRead.textContent = `IsRead: ${value.isRead}`;
     removeButton.textContent = "Remove";
+    readButton.textContent = `${
+      value.isRead === "finished" ? "Finished" : "Not Yet"
+    }`;
 
     bookCard.classList.add("cardContainer");
     buttonGroup.classList.add("buttonGroup");
     removeButton.classList.add("removeButton");
+    readButton.classList.add("readButton");
     title.classList.add("bookTitle");
 
     bookCard.appendChild(title);
     bookCard.appendChild(author);
     bookCard.appendChild(pages);
-    bookCard.appendChild(isRead);
     buttonGroup.appendChild(removeButton);
+    buttonGroup.appendChild(readButton);
     bookCard.appendChild(buttonGroup);
     library.appendChild(bookCard);
 
     removeButton.addEventListener("click", function () {
       value.removeBook();
+    });
+
+    readButton.addEventListener("click", function () {
+      value.changeStatus();
     });
   });
 }
