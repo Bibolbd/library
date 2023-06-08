@@ -1,11 +1,12 @@
-let myLibrary = [];
+class Book {
+  constructor(title, author, pages, isRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.isRead = isRead;
+  }
 
-function Book(title, author, pages, isRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.isRead = isRead;
-  this.info = function () {
+  info() {
     return (
       this.title +
       " by " +
@@ -15,21 +16,23 @@ function Book(title, author, pages, isRead) {
       " pages, " +
       this.isRead
     );
-  };
+  }
+
+  removeBook() {
+    const self = this;
+    displayLibrary(
+      myLibrary.filter(function (book) {
+        return book !== self;
+      }, this)
+    );
+  }
+
+  changeStatus() {
+    this.isRead = this.isRead === "finished" ? "not yet read" : "finished";
+    displayLibrary(myLibrary);
+  }
 }
-
-Book.prototype.removeBook = function () {
-  displayLibrary(
-    myLibrary.filter(function (book) {
-      return book !== this;
-    }, this)
-  );
-};
-
-Book.prototype.changeStatus = function () {
-  this.isRead = this.isRead === "finished" ? "not yet read" : "finished";
-  displayLibrary(myLibrary);
-};
+let myLibrary = [];
 
 const addBook = document.getElementById("addBook");
 const newBook = document.getElementById("newBook");
